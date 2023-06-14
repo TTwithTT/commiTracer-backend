@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_074634) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_14_061355) do
   create_table "blocks", charset: "utf8mb3", force: :cascade do |t|
     t.integer "index"
     t.string "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_074634) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "commit_id"
   end
 
   create_table "commits", charset: "utf8mb3", force: :cascade do |t|
