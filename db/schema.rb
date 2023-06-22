@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_14_061355) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_115918) do
   create_table "blocks", charset: "utf8mb3", force: :cascade do |t|
-    t.integer "index"
     t.string "name"
     t.integer "length"
     t.integer "status"

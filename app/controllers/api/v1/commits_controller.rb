@@ -13,7 +13,7 @@ module Api
       private
 
       def commit_params
-        params.require(:commit).permit(:id, :title, :scheduledDate, blocks_attributes: [:id, :index, :name, :length, :status])
+        params.require(:commit).permit(:id, :title, :scheduledDate, blocks_attributes: [:id, :name, :length, :status])
       end
     end
   end
