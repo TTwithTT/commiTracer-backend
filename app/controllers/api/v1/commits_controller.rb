@@ -10,6 +10,15 @@ module Api
         end
       end
 
+      def update
+        @commit = Commit.find(params[:id])
+        if @commit.update(commit_params)
+          render json: @commit, status: :ok, location: api_v1_commit_url(@commit), include: [:blocks]
+        else
+          render json: @commit.errors, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def commit_params
