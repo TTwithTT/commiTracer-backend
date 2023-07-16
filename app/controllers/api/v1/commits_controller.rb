@@ -2,10 +2,10 @@ module Api
   module V1
     class CommitsController < ApplicationController
       def index
-        @commits = Commit.all
+        @commits = Commit.order(id: :desc).limit(5)
         render json: @commits, include: [:blocks]
       end
-      
+
       def create
         @commit = Commit.new(commit_params)
         if @commit.save
