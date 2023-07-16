@@ -24,6 +24,15 @@ module Api
         end
       end
 
+      def destroy
+        commit = Commit.find(params[:id])
+        if commit.destroy
+          render json: { status: 'SUCCESS', message: 'Commit deleted', data: commit }, status: :ok
+        else
+          render json: { status: 'ERROR', message: 'Commit could not be deleted', data: block.errors }, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def commit_params
