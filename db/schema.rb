@@ -15,6 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_074634) do
     t.string "name"
     t.integer "length"
     t.integer "status"
+    t.integer "commit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

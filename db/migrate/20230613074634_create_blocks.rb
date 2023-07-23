@@ -4,6 +4,7 @@ class CreateBlocks < ActiveRecord::Migration[7.0]
       t.string :name
       t.integer :length
       t.integer :status
+      t.integer :commit_id
 
       t.timestamps
     end
