@@ -2,7 +2,6 @@ version: '3'
 volumes:
   mysql_data:
   vendor_bundle:
-  node_modules:
 
 services:
   mysql:
@@ -10,7 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
     networks:
-      - default
+      - shared_network
     ports:
       - '33306:3306'
     volumes:
@@ -29,10 +28,13 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_HOST: mysql
     networks:
-      - default
+      - shared_network
     volumes:
       - ./:/usr/src/app
       - ./vendor/bundle:/usr/local/bundle
     tty: true
     stdin_open: true
     command: bundle exec rails server --binding 0.0.0.0 --port 8080
+networks:
+  shared_network:
+    external: true
