@@ -6,7 +6,7 @@ Rails.application.routes.draw do
           resources :blocks
         end
       end
-      resources :commits, only: [:index]
+      resources :commits
     end
   end
   post 'auth/callback/:provider', to: 'api/v1/users#create'
