@@ -1,13 +1,15 @@
 module Api
   module V1
     class CommitsController < ApplicationController
+      before_action :set_user
+
       def index
-        @commits = Commit.order(id: :desc).limit(5)
+        @commits = @user.commits.order(id: :desc).limit(5)
         render json: @commits, include: [:blocks]
       end
 
       def create
-        @commit = Commit.new(commit_params)
+        @commit = @user.commits.new(commit_params)
         if @commit.save
           render json: @commit, status: :created, location: api_v1_commit_url(@commit), include: [:blocks]
         else
@@ -16,7 +18,7 @@ module Api
       end
 
       def update
-        @commit = Commit.find(params[:id])
+        @commit = @user.commits.find(params[:id])
         if @commit.update(commit_params)
           render json: @commit, status: :ok, location: api_v1_commit_url(@commit), include: [:blocks]
         else
@@ -25,7 +27,7 @@ module Api
       end
 
       def destroy
-        commit = Commit.find(params[:id])
+        commit = @user.commits.find(params[:id])
         if commit.destroy
           render json: { status: 'SUCCESS', message: 'Commit deleted', data: commit }, status: :ok
         else
@@ -37,6 +39,10 @@ module Api
 
       def commit_params
         params.require(:commit).permit(:id, :title, blocks_attributes: [:id, :name, :length, :status])
+      end
+
+      def set_user
+        @user = User.find_by(params[:uid])
       end
     end
   end
