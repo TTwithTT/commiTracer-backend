@@ -11,7 +11,7 @@ module Api
       def create
         @commit = @user.commits.new(commit_params)
         if @commit.save
-          render json: @commit, status: :created, location: api_v1_commit_url(@commit), include: [:blocks]
+          render json: @commit, status: :created, location: api_v1_user_commit_url(@user, @commit), include: [:blocks]
         else
           render json: @commit.errors, status: :unprocessable_entity
         end
@@ -20,7 +20,7 @@ module Api
       def update
         @commit = @user.commits.find(params[:id])
         if @commit.update(commit_params)
-          render json: @commit, status: :ok, location: api_v1_commit_url(@commit), include: [:blocks]
+          render json: @commit, status: :ok, location: api_v1_user_commit_url(@commit), include: [:blocks]
         else
           render json: @commit.errors, status: :unprocessable_entity
         end
@@ -42,7 +42,10 @@ module Api
       end
 
       def set_user
-        @user = User.find_by(params[:uid])
+        @user = User.find_by(uid: params[:user_id])
+        if @user.nil?
+          render json: { error: 'User not found' }, status: :not_found
+        end
       end
     end
   end
