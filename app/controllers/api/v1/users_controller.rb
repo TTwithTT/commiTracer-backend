@@ -18,7 +18,7 @@ module Api
       end
 
       def destroy
-        user = User.find_by(email: params[:email])
+        user = User.find_by(uid: params[:uid])
         if user
           user.destroy
         else
