@@ -2,12 +2,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users do
+        member do
+          get 'exist', to: 'users#exist'
+        end
         resources :commits do
           resources :blocks
         end
       end
     end
   end
-  post 'auth/callback/:provider', to: 'api/v1/users#create'
-  delete 'users/:email', to: 'api/v1/users#destroy', constraints: { email: %r{[^/]+} } 
+  post 'auth/:provider/callback', to: 'api/v1/users#create'
 end
