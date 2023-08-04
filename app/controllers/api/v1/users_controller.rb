@@ -4,12 +4,12 @@ module Api
       def create
         user = User.find_or_create_by(
           provider: params[:provider], 
-          uid: params[:uid], 
+          uid: params[:userId], 
           name: params[:name],
           email: params[:email]
         )
         if user
-          head :ok
+          render json: { data: user }
         else
           render json: { error: "Login failed."}, status: :unprocessable_entity
         end
@@ -17,10 +17,16 @@ module Api
         render json: { error: e.message }, status: :internal_server_error
       end
 
+      def exist
+        user = User.find_by(uid: params[:id])
+        render json: { exists: user.present? }
+      end      
+
       def destroy
-        user = User.find_by(uid: params[:uid])
+        user = User.find_by(uid: params[:id])
         if user
           user.destroy
+          render json: {status: 'SUCCESS', message: 'User deleted', data: user}
         else
           render json: { error: "The user not found."}, status: :not_found
         end
