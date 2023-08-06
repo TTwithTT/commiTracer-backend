@@ -12,5 +12,5 @@ Rails.application.routes.draw do
       end
     end
   end
-  post 'auth/:provider/callback', to: 'api/v1/users#create'
+  post 'auth/google/callback', to: 'api/v1/users#create'
 end
