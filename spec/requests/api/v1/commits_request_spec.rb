@@ -55,7 +55,7 @@ RSpec.describe "Api::V1::Commits", type: :request do
 
     it "deletes the commit" do
       expect {
-        delete api_v1_user_commit_path(user.uid, commit)
+        delete api_v1_user_commit_path(user_id: user.id, id: commit.id)
       }.to change(Commit, :count).by(-1)
       expect(response).to have_http_status(:ok)
     end

@@ -47,7 +47,7 @@ RSpec.describe "Api::V1::Users", type: :request do
     context "when user exists" do
       it "deletes the user" do
         expect {
-          delete "/api/v1/users/destroy", params: { id: user.uid }
+          delete api_v1_user_path(id: user.id)
         }.to change(User, :count).by(-1)
         expect(response).to have_http_status(:success)
       end
