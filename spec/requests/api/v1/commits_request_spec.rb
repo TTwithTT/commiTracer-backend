@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Commits", type: :request do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
+  let!(:commit) { create(:commit, user: user) }
 
   describe "GET /index" do
     let!(:commits) { create_list(:commit, 10, user: user) }
@@ -32,7 +33,6 @@ RSpec.describe "Api::V1::Commits", type: :request do
   end
 
   describe "PUT /update" do
-    let!(:commit) { create(:commit, user: user) }
     let(:updated_params) do
       {
         title: "Updated Commit",
@@ -51,11 +51,9 @@ RSpec.describe "Api::V1::Commits", type: :request do
   end
 
   describe "DELETE /destroy" do
-    let!(:commit) { create(:commit, user: user) }
-
     it "deletes the commit" do
       expect {
-        delete api_v1_user_commit_path(user_id: user.id, id: commit.id)
+        delete api_v1_user_commit_path(user_id: user.uid, id: commit.id)
       }.to change(Commit, :count).by(-1)
       expect(response).to have_http_status(:ok)
     end
