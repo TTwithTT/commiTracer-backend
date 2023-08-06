@@ -26,8 +26,8 @@ test:
   database: commiTracer_test
 
 production:
-  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
   adapter: mysql2
   encoding: utf8
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
