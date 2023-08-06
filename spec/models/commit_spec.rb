@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Commit, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:user) }
+  it { should have_many(:blocks) }
+  it { should accept_nested_attributes_for(:blocks) }
 end
