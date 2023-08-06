@@ -1,4 +1,4 @@
-FROM ruby:3.0.6
+FROM ruby:3.1.4
 
 ENV BUNDLE_VERSION 2.2.33
 ENV APP /app
@@ -10,7 +10,7 @@ RUN apt-get update -qq && \
     libssl-dev \
     libreadline-dev \
     zlib1g-dev \
-    netcat \
+    netcat-openbsd \
     vim \
     default-mysql-client \
     libxml2-dev \
