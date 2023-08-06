@@ -10,7 +10,7 @@ RUN apt-get update -qq && \
     libssl-dev \
     libreadline-dev \
     zlib1g-dev \
-    netcat \
+    netcat-openbsd \
     vim \
     default-mysql-client \
     libxml2-dev \
