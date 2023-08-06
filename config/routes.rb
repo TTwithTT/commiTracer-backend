@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users do
+      resources :users, except: [:show] do
         member do
           get 'exist', to: 'users#exist'
         end
         resources :commits do
           resources :blocks
         end
+        get 'users/:id', to: 'users#show'
       end
     end
   end

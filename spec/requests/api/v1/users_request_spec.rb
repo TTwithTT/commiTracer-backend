@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Users", type: :request do
+  let!(:user) { create(:user, uid: "test_user_id") }
+
   describe "POST /create" do
     let(:valid_params) do
       {
@@ -22,11 +24,9 @@ RSpec.describe "Api::V1::Users", type: :request do
   end
 
   describe "GET /exist" do
-    let!(:user) { create(:user, uid: "test_user_id") }
-
     context "when user exists" do
       it "returns true" do
-        get "/api/v1/users/exist", params: { id: user.uid }
+        get "/api/v1/users/#{user.uid}/exist"
         expect(response).to have_http_status(:success)
         expect(JSON.parse(response.body)["exists"]).to eq(true)
       end
@@ -34,7 +34,7 @@ RSpec.describe "Api::V1::Users", type: :request do
 
     context "when user doesn't exist" do
       it "returns false" do
-        get "/api/v1/users/exist", params: { id: "nonexistent_uid" }
+        get "/api/v1/users/nonexistent_uid/exist"
         expect(response).to have_http_status(:success)
         expect(JSON.parse(response.body)["exists"]).to eq(false)
       end
@@ -42,12 +42,10 @@ RSpec.describe "Api::V1::Users", type: :request do
   end
 
   describe "DELETE /destroy" do
-    let!(:user) { create(:user, uid: "test_user_id") }
-
     context "when user exists" do
       it "deletes the user" do
         expect {
-          delete api_v1_user_path(id: user.id)
+          delete api_v1_user_path(id: user.uid)
         }.to change(User, :count).by(-1)
         expect(response).to have_http_status(:success)
       end
