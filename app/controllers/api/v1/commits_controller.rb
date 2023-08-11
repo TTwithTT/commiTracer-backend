@@ -5,7 +5,7 @@ module Api
 
       def index
         @commits = @user.commits.order(id: :desc).limit(8)
-        render json: @commits, include: [:blocks]
+        render json: @commits, include: [:blocks, :sticky_notes]
       end
 
       def create
@@ -43,9 +43,7 @@ module Api
 
       def set_user
         @user = User.find_by(uid: params[:user_id])
-        if @user.nil?
-          render json: { error: 'User not found' }, status: :not_found
-        end
+        render json: { error: 'User not found' }, status: :not_found if @user.nil?
       end
     end
   end
