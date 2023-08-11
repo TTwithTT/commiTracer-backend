@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         end
         resources :commits do
           resources :blocks
+          resources :sticky_notes
         end
         get 'users/:id', to: 'users#show'
       end
