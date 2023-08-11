@@ -4,25 +4,25 @@ module Api
       before_action :set_user
 
       def index
-        @commits = @user.commits.order(id: :desc).limit(8)
-        render json: @commits, include: [:blocks, :sticky_notes]
+        commits = @user.commits.order(id: :desc).limit(8)
+        render json: commits, include: [:blocks, :sticky_notes]
       end
 
       def create
-        @commit = @user.commits.new(commit_params)
-        if @commit.save
-          render json: @commit, status: :created, location: api_v1_user_commit_url(@user, @commit), include: [:blocks]
+        commit = @user.commits.new(commit_params)
+        if commit.save
+          render json: commit, status: :created, location: api_v1_user_commit_url(@user, commit), include: [:blocks]
         else
-          render json: @commit.errors, status: :unprocessable_entity
+          render json: commit.errors, status: :unprocessable_entity
         end
       end
 
       def update
-        @commit = @user.commits.find(params[:id])
-        if @commit.update(commit_params)
-          render json: @commit, status: :ok, location: api_v1_user_commit_url(@commit), include: [:blocks]
+        commit = @user.commits.find(params[:id])
+        if commit.update(commit_params)
+          render json: commit, status: :ok, location: api_v1_user_commit_url(commit), include: [:blocks]
         else
-          render json: @commit.errors, status: :unprocessable_entity
+          render json: commit.errors, status: :unprocessable_entity
         end
       end
 
