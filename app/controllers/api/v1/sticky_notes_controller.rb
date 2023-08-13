@@ -26,11 +26,11 @@ module Api
       private
 
       def sticky_note_params
-        params.require(:sticky_note).permit(:id :reflection)
+        params.require(:sticky_note).permit(:id, :reflection)
       end
 
       def set_user
-        @user = User.find(uid: params[:user_id])
+        @user = User.find_by(uid: params[:user_id])
         render json: { error: 'User not found' }, status: :not_found if @user.nil?
       end
       
