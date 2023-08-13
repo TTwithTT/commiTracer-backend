@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         end
         resources :commits do
           resources :blocks
-          resources :sticky_notes
+          resources :sticky_notes, only: [:create, :destroy]
         end
         get 'users/:id', to: 'users#show'
       end
