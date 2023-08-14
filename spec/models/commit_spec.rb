@@ -18,6 +18,10 @@ RSpec.describe Commit, type: :model do
         expect(commit.valid?).to be false
         expect(commit.errors[:sticky_notes]).to include("You can only have 3 sticky notes per commit.")
       end
+
+      after do
+        commit.sticky_notes.destroy_all
+      end
     end
   end
 end
