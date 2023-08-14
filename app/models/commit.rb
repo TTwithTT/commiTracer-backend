@@ -1,6 +1,6 @@
 class Commit < ApplicationRecord
   belongs_to :user
-  has_many :blocks
+  has_many :blocks, dependet: :destroys
   accepts_nested_attributes_for :blocks
   has_many :sticky_notes, dependent: :destroy
 
