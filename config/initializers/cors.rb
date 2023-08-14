@@ -7,8 +7,8 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # origins "commitracer.vercel.app"
-    origins "http://localhost:3000"
+
+    origins "commitracer.vercel.app"
 
     resource "*",
       headers: :any,
