@@ -4,7 +4,7 @@ module Api
       before_action :set_user
 
       def index
-        commits = @user.commits.order(id: :desc).limit(8)
+        commits = @user.commits.includes(:blocks, :sticky_notes).order(id: :desc).limit(8)
         render json: commits, include: [:blocks, :sticky_notes]
       end
 
