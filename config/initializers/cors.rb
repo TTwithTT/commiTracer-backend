@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "commi-tracer-frontend.vercel.app"
+    origins "https://commitracer.vercel.app"
 
     resource "*",
       headers: :any,
