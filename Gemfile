@@ -53,6 +53,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rails-erd'
   gem 'annotate'
+  gem 'dotenv-rails'
 end
 
 group :development do
