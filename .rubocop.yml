@@ -1,0 +1,40 @@
+inherit_from: 
+  - .rubocop_airbnb.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-airbnb
+
+Rails:
+  Enabled: true
+
+LineLength:
+  Max: 130
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'db/migrate/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - '**/Gemfile'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - 'Rakefile'
+    - 'app/channels/application_cable/channel.rb'
+    - 'app/channels/application_cable/connection.rb'
+    - 'app/models/application_record.rb'
+    - 'app/jobs/application_job.rb'
+    - 'app/mailers/**/*'
+    - 'config.ru'
+
+Layout/IndentationStyle:
+  EnforcedStyle: spaces
+  IndentationWidth: 2
+
+Layout/IndentationConsistency:
+  EnforcedStyle: normal

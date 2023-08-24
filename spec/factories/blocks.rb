@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :block do
-    name { "MyString" }
+    name { 'MyString' }
     length { 1 }
-    status { "running" }
+    status { 'running' }
     commit
   end
 end

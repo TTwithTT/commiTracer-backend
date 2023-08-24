@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class CommitsController < ApplicationController
@@ -5,7 +7,7 @@ module Api
 
       def index
         commits = @user.commits.includes(:blocks, :sticky_notes).order(id: :desc).limit(8)
-        render json: commits, include: [:blocks, :sticky_notes]
+        render json: commits, include: %i(blocks sticky_notes)
       end
 
       def create
@@ -31,14 +33,15 @@ module Api
         if commit.destroy
           render json: { status: 'SUCCESS', message: 'Commit deleted', data: commit }, status: :ok
         else
-          render json: { status: 'ERROR', message: 'Commit could not be deleted', data: commit.errors }, status: :unprocessable_entity
+          render json: { status: 'ERROR', message: 'Commit could not be deleted', data: commit.errors },
+                 status: :unprocessable_entity
         end
       end
 
       private
 
       def commit_params
-        params.require(:commit).permit(:id, :title, blocks_attributes: [:id, :name, :length, :status])
+        params.require(:commit).permit(:id, :title, blocks_attributes: %i(id name length status))
       end
 
       def set_user

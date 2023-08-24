@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Commit < ApplicationRecord
   belongs_to :user
   has_many :blocks, dependent: :destroy
@@ -9,8 +11,6 @@ class Commit < ApplicationRecord
   private
 
   def maximum_three_sticky_notes
-    if sticky_notes.size > 3
-      errors.add(:sticky_notes, "You can only have 3 sticky notes per commit.")
-    end
+    errors.add(:sticky_notes, 'You can only have 3 sticky notes per commit.') if sticky_notes.size > 3
   end
 end
