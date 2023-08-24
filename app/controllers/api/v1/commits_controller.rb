@@ -7,7 +7,7 @@ module Api
 
       def index
         commits = @user.commits.includes(:blocks, :sticky_notes).order(id: :desc).limit(8)
-        render json: commits, include: %i[blocks sticky_notes]
+        render json: commits, include: %i(blocks sticky_notes)
       end
 
       def create
@@ -41,7 +41,7 @@ module Api
       private
 
       def commit_params
-        params.require(:commit).permit(:id, :title, blocks_attributes: %i[id name length status])
+        params.require(:commit).permit(:id, :title, blocks_attributes: %i(id name length status))
       end
 
       def set_user
