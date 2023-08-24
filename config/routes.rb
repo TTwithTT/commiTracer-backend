@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
         end
         resources :commits do
           resources :blocks
-          resources :sticky_notes, only: [:create, :destroy]
+          resources :sticky_notes, only: %i[create destroy]
         end
         get 'users/:id', to: 'users#show'
       end
