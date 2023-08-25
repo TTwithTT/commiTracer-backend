@@ -1,0 +1,51 @@
+name: rspec and rubocop
+
+on: [push, pull_request]
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    services:
+      musql:
+        image: mysql:8.0
+        ports: 3306:3306
+        env:
+          MYSQL_ALLOW_EMPTYPASSWORD: yes
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.4
+          bundler-cache: true
+      
+      - name: Create and migrate database
+        run: |
+        bundle exec rails db:create Rails_ENV=test
+        bundle exec rails db:migrate Rails_ENV=test
+
+      - name: Run rspec
+        run: |
+        bundle exec rails test
+  
+  rubocop:
+    runs-on: ubuntu-lateset
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actionscheckout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.4
+          bundler-cache: true
+      
+      - name: Run rubocop
+        run: bundle exec rubocop
