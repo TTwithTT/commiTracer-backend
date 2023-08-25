@@ -34,11 +34,11 @@ jobs:
         run: bundle exec rspec
   
   rubocop:
-    runs-on: ubuntu-lateset
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout code
-        uses: actions@checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
