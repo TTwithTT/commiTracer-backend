@@ -8,7 +8,7 @@ jobs:
     timeout-minutes: 10
     
     services:
-      musql:
+      mysql:
         image: mysql:8.0
         ports: 3306:3306
         env:
@@ -27,8 +27,8 @@ jobs:
       
       - name: Create and migrate database
         run: |
-        bundle exec rails db:create Rails_ENV=test
-        bundle exec rails db:migrate Rails_ENV=test
+        bundle exec rails db:create RAILS_ENV=test
+        bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Run rspec
         run: |
