@@ -9,7 +9,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "https://commitracer.vercel.app", ENV['CLIENT_URL']
+    origins ENV['CLIENT_URL'], "https://commitracer.vercel.app"
 
     resource '*',
              headers: :any,
